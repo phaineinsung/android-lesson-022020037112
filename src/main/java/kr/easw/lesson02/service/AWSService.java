@@ -6,6 +6,7 @@ import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.Bucket;
+import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
 import kr.easw.lesson02.model.dto.AWSKeyDto;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.ByteArrayInputStream;
+import java.io.FileOutputStream;
 import java.util.List;
 import java.util.UUID;
 
@@ -23,6 +25,9 @@ public class AWSService {
     private AmazonS3 s3Client = null;
 
     public static void onDownload(String fileName) {
+    }
+
+    public static void getObject(GetObjectRequest getObjectRequest, FileOutputStream fileOutputStream) {
     }
 
     public void initAWSAPI(AWSKeyDto awsKey) {
