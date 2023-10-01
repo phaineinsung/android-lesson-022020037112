@@ -1,16 +1,38 @@
 <html lang="ko">
-    <body>
-        <a href="/download"> <--  다운로드 페이지로 </a>
-        <h2> 파일 업로드 </h2>
-        <span>파일 업로드 코드를 작성하십시오.</span>
-        <span>파일을 업로드하는 예제에 대해서는 <a href="https://github.com/java-lesson-cbnu/android-lesson-01">이전 예제 레포지토리</a>를 참고하세요. </span>
-        <span id="message"> </span>
-    </body>
-    <script>
+<body>
+<a href="/download"> <--  다운로드 페이지로 </a>
+<h2> 파일 업로드 </h2>
+<span>파일을 업로드하세요.</span>
+<input type="file" id="fileInput">
+<button onclick="uploadFile()">업로드</button>
+<span id="message"> </span>
+</body>
+<script>
 
-        let params = new URLSearchParams(window.location.search);
-        if (params.get("success") != null) {
-            document.getElementById("message").innerHTML = "파일 업로드에 성공하였습니다.";
+        function uploadFile() {
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+
+            if (!file) {
+                alert('파일을 선택하세요.');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', '/api/v1/rest/aws/upload', true);
+
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    document.getElementById("message").innerHTML = "파일 업로드에 성공하였습니다.";
+                } else {
+                    document.getElementById("message").innerHTML = "파일 업로드에 실패하였습니다.";
+                }
+            };
+
+            xhr.send(formData);
         }
     </script>
 </html>

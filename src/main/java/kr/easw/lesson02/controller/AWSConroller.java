@@ -15,6 +15,7 @@ import java.util.List;
 public class AWSConroller {
     private final AWSService awsController;
 
+
     @PostMapping("/auth")
     private ModelAndView onAuth(AWSKeyDto awsKey) {
         try {
@@ -46,11 +47,30 @@ public class AWSConroller {
     @PostMapping("/download")
     private ModelAndView onDownload(@RequestParam String fileName) {
         try {
-           // 이곳에 파일 다운로드 로직, 혹은 서비스를 통한 다운로드 호출을 구현하십시오.
-           throw new IllegalStateException("기능이 구현되지 않았습니다.");
-        } catch (Throwable e) {
-            return new ModelAndView("redirect:/server-error?errorStatus=" + e.getMessage());
+            // AWS S3에서 파일 다운로드
+            AWSService.onDownload(fileName);
+
+            // 파일 다운로드 성공 시 리다이렉트 또는 적절한 응답 처리
+            return new ModelAndView("redirect:/?success=true");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new ModelAndView("redirect:/server-error?errorStatus=" + ex.getMessage());
         }
     }
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

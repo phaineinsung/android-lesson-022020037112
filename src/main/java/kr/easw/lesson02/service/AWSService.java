@@ -22,6 +22,9 @@ public class AWSService {
     private static final String BUCKET_NAME = "easw-random-bucket-" + UUID.randomUUID();
     private AmazonS3 s3Client = null;
 
+    public static void onDownload(String fileName) {
+    }
+
     public void initAWSAPI(AWSKeyDto awsKey) {
         s3Client = AmazonS3ClientBuilder.standard()
                 .withCredentials(new AWSStaticCredentialsProvider(new BasicAWSCredentials(awsKey.getApiKey(), awsKey.getApiSecretKey())))
